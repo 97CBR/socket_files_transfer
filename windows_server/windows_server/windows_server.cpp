@@ -102,8 +102,9 @@ int main(int argc, const char* argv[]) {
         cout << file_name << endl;
 
         // 打开文件并读取文件数据
-        FILE* fp = fopen(file_name, "r");
-        if (nullptr == fp) {
+        ifstream  fp;
+        fp.open(file_name, ios::binary);
+        if (!fp) {
             char tmp[256];
             printf("File:%s Not Found\n", file_name);
             sprintf(tmp, "File:%s Not Found\n", file_name);
@@ -117,19 +118,20 @@ int main(int argc, const char* argv[]) {
             memset(&buffer, 0, sizeof(buffer));
             int length = 0;
             int allCount = 0;
-            // 每读取一段数据，便将其发送给客户端，循环直到文件读完为止
-            while ((length = (int)fread(buffer, sizeof(char), BUFFER_SIZE, fp)) > 0) {
-                if (send(new_server_socket_fd, buffer, length, 0) < 0) {
-                    printf("Send File:%s Failed./n", file_name);
-                    break;
-                }
-                allCount++;
-                //bzero(buffer, BUFFER_SIZE);
-                memset(&buffer, 0, sizeof(buffer));
+            int readLen = 0;
+			// 每读取一段数据，便将其发送给客户端，循环直到文件读完为止
+            while (!fp.eof()) {
+                fp.read(buffer, BUFFER_SIZE);
+                readLen = fp.gcount();
+                send(new_server_socket_fd, buffer, readLen, 0);
+                allCount += readLen;
             }
+            
+
+            fp.close();
             // 关闭文件
-            fclose(fp);
-            printf("File:%s Transfer Successful! 共%dK\n", file_name, allCount);
+            /*fclose(fp);*/
+            printf("File:%s Transfer Successful! 共%.2fK\n", file_name, allCount/1024.0);
         }
         // 关闭与客户端的连接
         closesocket(new_server_socket_fd);

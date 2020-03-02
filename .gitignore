@@ -6,3 +6,7 @@ Release/hainan_client.ipdb
 Release/hainan_client.pdb
 linux_server/.idea/
 linux_server/cmake-build-debug/
+windows_server/windows_server/x64/
+windows_server/x64/Release/windows_server.iobj
+windows_server/x64/Release/windows_server.ipdb
+windows_server/x64/Release/windows_server.pdb
