@@ -4,3 +4,5 @@ hainan_client/Release/
 Release/hainan_client.iobj
 Release/hainan_client.ipdb
 Release/hainan_client.pdb
+linux_server/.idea/
+linux_server/cmake-build-debug/
