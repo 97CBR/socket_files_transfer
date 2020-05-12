@@ -18,5 +18,13 @@
     <ClCompile Include="windows_server.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="CbrThreadPool.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CbrThreadPool.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
